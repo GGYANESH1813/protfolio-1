@@ -1,171 +1,101 @@
 import React, { useState } from 'react';
 
-export default function Contact({ personal }) {
-  const [copied, setCopied] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+export default function Contact({ personal, onCopyEmail }) {
+  const [copiedInternal, setCopiedInternal] = useState(false);
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText(personal.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-    
-    // Construct mailto link fallback
-    const mailtoUrl = `mailto:${personal.email}?subject=${encodeURIComponent(formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(`From: ${formData.name} (${formData.email})\n\n${formData.message}`)}`;
-    window.open(mailtoUrl, '_blank');
-    
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 4000);
+  const handleCopy = () => {
+    onCopyEmail();
+    setCopiedInternal(true);
+    setTimeout(() => setCopiedInternal(false), 2500);
   };
 
   return (
     <section id="contact">
-      <div className="section-header-wrap">
-        <span className="section-prefix">07 // REACH_OUT</span>
-        <h2 className="section-title">Let's Connect & Build</h2>
-        <p className="section-subtitle">
-          Direct communication channels for internship inquiries, project collaborations, and AI/ML discussions.
-        </p>
-      </div>
+      <span className="section-prefix">07 // REACH_OUT</span>
+      <h2 className="section-title">Let's Connect</h2>
+      <p className="section-subtitle">
+        Direct communication channels for internship inquiries and technical discussions.
+      </p>
 
       <div className="contact-grid">
-        {/* Contact Methods List */}
         <div className="contact-direct">
+          {/* Interactive Click-to-Copy Method */}
           <div 
-            className="contact-method" 
-            onClick={copyEmail} 
-            style={{ cursor: 'pointer' }}
+            className="contact-method card-hover-depth" 
+            onClick={handleCopy} 
             title="Click to copy email address"
+            tabIndex={0}
+            role="button"
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCopy(); }}
           >
             <div>
               <span className="contact-label">Email (Click to Copy)</span>
               <div className="contact-val">{personal.email}</div>
             </div>
             <div>
-              {copied ? (
+              {copiedInternal ? (
                 <span className="copy-feedback">✓ Copied!</span>
               ) : (
-                <span className="copy-action-btn">Copy 📋</span>
+                <span className="copy-cta-tag">Copy 📋</span>
               )}
             </div>
           </div>
 
+          {/* LinkedIn Channel */}
           <a 
             href={personal.linkedin} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="contact-method"
+            className="contact-method card-hover-depth"
           >
             <div>
               <span className="contact-label">LinkedIn Profile</span>
               <div className="contact-val">{personal.linkedin.replace('https://', '')}</div>
             </div>
-            <span className="contact-external-icon">Visit ↗</span>
+            <span className="external-link-arrow">Visit ↗</span>
           </a>
 
+          {/* Location Details */}
           <div className="contact-method" style={{ cursor: 'default' }}>
             <div>
-              <span className="contact-label">Current Academic Base</span>
+              <span className="contact-label">Location</span>
               <div className="contact-val">{personal.location}</div>
             </div>
-            <span className="status-dot-static">📍</span>
-          </div>
-
-          {/* Availability Callout */}
-          <div className="card availability-card">
-            <div className="status-header">
-              <span className="status-pulse"></span>
-              <span className="status-label-emerald">ACTIVE INTERNSHIP CANDIDATE</span>
-            </div>
-            <h3 className="card-title" style={{ fontSize: '1.15rem', marginTop: '6px' }}>
-              Looking for Summer Engineering Roles
-            </h3>
-            <p className="card-body" style={{ fontSize: '0.9rem', marginTop: '6px' }}>
-              Open to Software Engineering, AI/ML Data Engineering, and Backend roles. Prepared to relocate or work remotely.
-            </p>
+            <span className="location-pin-icon">📍</span>
           </div>
         </div>
 
-        {/* Interactive Quick Message Form */}
-        <div className="card contact-form-card">
-          <h3 className="card-title" style={{ fontSize: '1.25rem' }}>Send a Quick Message</h3>
-          <p className="card-body" style={{ fontSize: '0.9rem', marginBottom: '16px' }}>
-            Fill in the form below to send an email inquiry directly to my inbox.
+        {/* Availability Callout Card with Pulsing Emerald Dot */}
+        <div className="card card-hover-depth availability-highlight-card">
+          <div className="availability-card-header">
+            <span className="status-pulse"></span>
+            <span className="availability-tag">
+              AVAILABLE FOR INTERNSHIPS
+            </span>
+          </div>
+          <h3 className="card-title" style={{ marginTop: '8px', marginBottom: '10px' }}>
+            Seeking Internship Opportunities
+          </h3>
+          <p className="card-body">
+            Actively seeking hands-on engineering internships where I can contribute Python programming, database management, and problem-solving skills to real-world software products.
           </p>
-
-          {formSubmitted ? (
-            <div className="form-success-banner">
-              <span className="success-icon">✓</span>
-              <h4>Message Launched!</h4>
-              <p>Your mail client has been opened with the inquiry details prefilled.</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="contact-form">
-              <div className="form-row-2">
-                <div className="form-group">
-                  <label htmlFor="contact-name" className="form-label">Your Name</label>
-                  <input 
-                    id="contact-name"
-                    type="text" 
-                    required 
-                    placeholder="e.g. Alex Smith"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="form-input"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="contact-email" className="form-label">Your Email</label>
-                  <input 
-                    id="contact-email"
-                    type="email" 
-                    required 
-                    placeholder="alex@company.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="form-input"
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="contact-subject" className="form-label">Subject</label>
-                <input 
-                  id="contact-subject"
-                  type="text" 
-                  placeholder="Internship Inquiry / Project Collaboration"
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="form-input"
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="contact-message" className="form-label">Message</label>
-                <textarea 
-                  id="contact-message"
-                  required 
-                  rows={4}
-                  placeholder="Hello Gyanesh, we'd like to talk about an internship opportunity..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="form-input"
-                ></textarea>
-              </div>
-
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '8px' }}>
-                Send Message Directly →
-              </button>
-            </form>
-          )}
+          <div className="contact-card-actions">
+            <a 
+              href={`mailto:${personal.email}?subject=Internship%20Opportunity%20Inquiry`} 
+              className="btn btn-primary"
+              style={{ width: '100%', marginTop: '12px' }}
+            >
+              Send Email Directly ✉️
+            </a>
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="btn btn-outline"
+              style={{ width: '100%', marginTop: '8px' }}
+            >
+              {copiedInternal ? "✓ Email Copied to Clipboard" : "Copy Email to Clipboard"}
+            </button>
+          </div>
         </div>
       </div>
     </section>

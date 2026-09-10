@@ -1,48 +1,66 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export default function Hero({ personal, stats = [] }) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(personal.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+export default function Hero({ personal, onCopyEmail }) {
+  const handleScrollTo = (e, id) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
     <section id="hero" className="hero-section">
-      <div className="hero-ambient-glow"></div>
+      <div className="hero-ambient-radial" aria-hidden="true"></div>
 
+      {/* Pulsating Emerald Availability Indicator */}
       <div className="hero-badge">
         <span className="status-pulse"></span>
-        <span>{personal.title} • {personal.institution}</span>
+        <span>{personal.role}</span>
       </div>
 
       <h1 className="hero-headline">
-        Engineering AI Models & <br />
-        <span className="gradient-text">Solving Critical Problems</span>.
+        Hi, I'm <span className="highlight">{personal.name}</span>.
       </h1>
 
       <p className="hero-narrative">
-        Hi, I'm <strong style={{ color: 'var(--text-high)' }}>{personal.name}</strong>. {personal.bio}
+        {personal.summary}
       </p>
 
+      {/* Action CTAs per PRD */}
       <div className="hero-actions">
-        <a href="#projects" className="btn btn-primary">
-          <span>Explore Projects</span>
-          <span className="btn-arrow">↓</span>
+        <a 
+          href="#projects" 
+          onClick={(e) => handleScrollTo(e, 'projects')}
+          className="btn btn-primary"
+        >
+          View Projects ↓
         </a>
-        <a href="#contact" className="btn btn-outline">
+
+        <a 
+          href="#contact" 
+          onClick={(e) => handleScrollTo(e, 'contact')}
+          className="btn btn-outline"
+        >
           Get in Touch
         </a>
+
         <button 
           type="button" 
-          onClick={handleCopyEmail}
-          className="btn btn-ghost copy-hero-btn"
+          onClick={onCopyEmail} 
+          className="btn btn-ghost"
           title="Click to copy email address"
         >
-          <span>{copied ? "✓ Copied Email!" : "📋 Copy Email"}</span>
+          <span>Copy Email 📋</span>
         </button>
+
+        <a 
+          href="./Profile (1).pdf" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="btn btn-ghost"
+        >
+          Resume PDF ↗
+        </a>
+
         <a 
           href={personal.linkedin} 
           target="_blank" 
@@ -52,17 +70,6 @@ export default function Hero({ personal, stats = [] }) {
           LinkedIn ↗
         </a>
       </div>
-
-      {stats.length > 0 && (
-        <div className="hero-stats-grid">
-          {stats.map((stat, idx) => (
-            <div className="stat-card" key={idx}>
-              <span className="stat-label">{stat.label}</span>
-              <span className="stat-value">{stat.value}</span>
-            </div>
-          ))}
-        </div>
-      )}
     </section>
   );
 }

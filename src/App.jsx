@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -8,24 +8,54 @@ import Education from './components/Education';
 import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Toast from './components/Toast';
 import { portfolioData } from './data/portfolioData';
 
 export default function App() {
-  const { personal, stats, about, skills, projects, education, achievements } = portfolioData;
+  const { personal, about, skills, projects, education, achievements } = portfolioData;
+
+  const [toast, setToast] = useState({
+    visible: false,
+    message: '',
+  });
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(personal.email);
+    setToast({
+      visible: true,
+      message: `Copied to clipboard: ${personal.email}`,
+    });
+
+    setTimeout(() => {
+      setToast({ visible: false, message: '' });
+    }, 3000);
+  };
+
+  const closeToast = () => {
+    setToast({ visible: false, message: '' });
+  };
 
   return (
-    <div className="portfolio-app">
-      <Navbar personal={personal} />
-      <main className="main-content-container">
-        <Hero personal={personal} stats={stats} />
-        <About about={about} personal={personal} />
+    <>
+      <Navbar personal={personal} onCopyEmail={handleCopyEmail} />
+
+      <main>
+        <Hero personal={personal} onCopyEmail={handleCopyEmail} />
+        <About about={about} />
         <Skills skills={skills} />
-        <Projects projects={projects} />
+        <Projects projects={projects} onCopyEmail={handleCopyEmail} />
         <Education education={education} />
         <Achievements achievements={achievements} />
-        <Contact personal={personal} />
+        <Contact personal={personal} onCopyEmail={handleCopyEmail} />
         <Footer personal={personal} />
       </main>
-    </div>
+
+      {/* Visual Toast Notification for Stage 4 */}
+      <Toast 
+        visible={toast.visible} 
+        message={toast.message} 
+        onClose={closeToast} 
+      />
+    </>
   );
 }

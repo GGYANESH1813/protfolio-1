@@ -1,43 +1,106 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default function Projects({ projects = [] }) {
+export default function Projects({ projects = [], onCopyEmail }) {
+  const [activeSlot, setActiveSlot] = useState(null);
+
   return (
     <section id="projects">
-      <div className="section-header-wrap">
-        <span className="section-prefix">04 // BUILDS_AND_SYSTEMS</span>
-        <h2 className="section-title">Featured Projects & Systems</h2>
-        <p className="section-subtitle">
-          Engineered software solutions, AI architectures, and database tools built with Python and DBMS.
-        </p>
+      <span className="section-prefix">04 // BUILDS_AND_SYSTEMS</span>
+      <h2 className="section-title">Projects & Systems</h2>
+      <p className="section-subtitle">
+        Shipped implementations, engineering builds, and open-source contributions.
+      </p>
+
+      {/* Project Philosophy Banner per PRD */}
+      <div className="project-philosophy-banner">
+        <span className="philosophy-step">Learn</span>
+        <span className="philosophy-arrow">→</span>
+        <span className="philosophy-step">Build</span>
+        <span className="philosophy-arrow">→</span>
+        <span className="philosophy-step">Solve</span>
+        <span className="philosophy-meta">// Core Engineering Philosophy</span>
       </div>
 
-      <div className="card-grid grid-2-col">
-        {projects.map((project, index) => (
-          <div className="card project-spec-card" key={index}>
-            <div className="project-thumbnail-wrap">
-              <img 
-                src={project.image} 
-                alt={project.title} 
-                className="project-thumb-img" 
-                loading="lazy"
-              />
-              <span className="project-year-badge">{project.year}</span>
+      {projects.length === 0 ? (
+        <div className="projects-scaffold-container">
+          {/* Interactive Project Card Docks with Hover Depth per Stage 4 */}
+          <div className="card-grid grid-2-col">
+            <div 
+              className={`card project-dock-card card-hover-depth ${activeSlot === 1 ? 'dock-active' : ''}`}
+              onMouseEnter={() => setActiveSlot(1)}
+              onMouseLeave={() => setActiveSlot(null)}
+            >
+              <div className="dock-header">
+                <span className="dock-badge">SLOT // 01 [FEATURED]</span>
+                <span className="dock-status">Awaiting Deployment</span>
+              </div>
+              <h3 className="card-title" style={{ marginTop: '8px' }}>Featured System Architecture</h3>
+              <p className="card-body">
+                Structured two-tiered project slot reserved for AI/ML or Python systems. Ready for problem statement, solution mechanics, and repository metrics.
+              </p>
+              <div className="dock-actions">
+                <a 
+                  href="https://github.com/GGYANESH" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="btn btn-outline btn-sm dock-trigger"
+                >
+                  GitHub Repositories ↗
+                </a>
+                <button 
+                  type="button" 
+                  onClick={onCopyEmail} 
+                  className="btn btn-ghost btn-sm"
+                >
+                  Suggest Project Inquiries
+                </button>
+              </div>
             </div>
-            <div className="project-details">
-              <span className="project-type-tag">{project.type}</span>
-              <h3 className="card-title" style={{ marginTop: '4px' }}>{project.title}</h3>
-              <p className="project-subtitle-text">{project.subtitle}</p>
-              <p className="card-body" style={{ marginTop: '8px' }}>{project.description}</p>
-              
-              <div className="tag-list" style={{ marginTop: '16px' }}>
-                {project.tags.map((t, idx) => (
-                  <span className="tag-chip accent" key={idx}>{t}</span>
-                ))}
+
+            <div 
+              className={`card project-dock-card card-hover-depth ${activeSlot === 2 ? 'dock-active' : ''}`}
+              onMouseEnter={() => setActiveSlot(2)}
+              onMouseLeave={() => setActiveSlot(null)}
+            >
+              <div className="dock-header">
+                <span className="dock-badge">SLOT // 02 [DATABASE]</span>
+                <span className="dock-status">Awaiting Deployment</span>
+              </div>
+              <h3 className="card-title" style={{ marginTop: '8px' }}>DBMS & Computational Tool</h3>
+              <p className="card-body">
+                Secondary engineering slot configured for relational schema design, query evaluation, or data pipeline implementations.
+              </p>
+              <div className="dock-actions">
+                <a 
+                  href="https://github.com/GGYANESH" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="btn btn-outline btn-sm dock-trigger"
+                >
+                  Inspect Git Profile ↗
+                </a>
               </div>
             </div>
           </div>
-        ))}
-      </div>
+
+          {/* Strict Data Rule Notice */}
+          <div className="empty-state-notice">
+            <span className="empty-notice-dot">i</span>
+            <span>
+              <strong>Profile Integrity:</strong> No specific project links were listed in <code>Profile (1).pdf</code>. Interactive docks are maintained per Stage 4 specification.
+            </span>
+          </div>
+        </div>
+      ) : (
+        <div className="card-grid grid-2-col">
+          {projects.map((project, index) => (
+            <div className="card card-hover-depth" key={index}>
+              <h3 className="card-title">{project.title}</h3>
+              <p className="card-body">{project.description}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

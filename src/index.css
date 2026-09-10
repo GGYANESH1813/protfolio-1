@@ -1158,3 +1158,327 @@ footer {
     justify-content: center;
   }
 }
+
+/* ========================================================
+   STAGE 4: COMPONENTS & INTERACTIVITY DESIGN SYSTEM
+   ======================================================== */
+
+/* 1. Hover Depth on Cards & Docks */
+.card-hover-depth {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+
+.card-hover-depth:hover {
+  transform: translateY(-4px);
+  border-color: var(--secondary);
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.6), 
+              0 0 24px rgba(59, 130, 246, 0.12);
+}
+
+/* 2. Interactive Navigation & Active Section Highlights */
+.nav-link-active {
+  color: var(--primary-bright) !important;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary);
+  border-radius: var(--radius-full);
+}
+
+.interactive-status {
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.interactive-status:hover {
+  border-color: var(--status-emerald);
+  background-color: rgba(16, 185, 129, 0.08);
+}
+
+/* 3. Pulsating Terminal-Emerald Availability Dot */
+.status-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--status-emerald);
+  box-shadow: 0 0 10px var(--status-emerald);
+  display: inline-block;
+  position: relative;
+}
+
+.status-pulse::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--status-emerald);
+  animation: radar-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes radar-ping {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* 4. Project Philosophy Banner */
+.project-philosophy-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid var(--surface-3);
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-xl);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  width: fit-content;
+}
+
+.philosophy-step {
+  color: var(--primary-bright);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.philosophy-arrow {
+  color: var(--tertiary);
+}
+
+.philosophy-meta {
+  color: var(--text-low);
+  margin-left: var(--space-xs);
+}
+
+/* 5. Interactive Project Card Docks */
+.projects-scaffold-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.project-dock-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(17, 24, 39, 0.7) 100%);
+  border: 1px solid var(--surface-3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-dock-card.dock-active {
+  border-color: var(--secondary);
+}
+
+.dock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+}
+
+.dock-badge {
+  color: var(--tertiary);
+  font-weight: 600;
+}
+
+.dock-status {
+  color: var(--text-low);
+}
+
+.dock-actions {
+  display: flex;
+  gap: var(--space-xs);
+  margin-top: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.75rem;
+}
+
+.empty-state-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid var(--surface-3);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  color: var(--text-medium);
+}
+
+.empty-notice-dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--primary-bright);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* 6. Click-to-Copy Visual Toast */
+.toast-notification-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  animation: toastSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes toastSlideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.toast-content {
+  background: rgba(17, 24, 39, 0.95);
+  border: 1px solid var(--status-emerald);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(16, 185, 129, 0.2);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(12px);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-high);
+}
+
+.toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--status-emerald);
+  font-weight: 700;
+}
+
+.toast-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-low);
+  cursor: pointer;
+  padding: 2px 6px;
+  font-size: 0.8rem;
+  transition: color 0.2s ease;
+}
+
+.toast-close-btn:hover {
+  color: var(--text-high);
+}
+
+/* 7. Interactive Skills Chips */
+.interactive-chip {
+  cursor: default;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.interactive-chip:hover, .interactive-chip:focus {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  background-color: rgba(59, 130, 246, 0.2);
+}
+
+/* 8. Availability Highlight Card */
+.availability-highlight-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.availability-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.availability-tag {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--status-emerald);
+  letter-spacing: 0.05em;
+}
+
+.copy-cta-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-low);
+  background: var(--surface-2);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--surface-3);
+  transition: all 0.2s ease;
+}
+
+.contact-method:hover .copy-cta-tag {
+  color: var(--primary-bright);
+  border-color: var(--primary);
+}
+
+/* 9. Mobile Hamburger Bars Animation */
+.hamburger-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--text-high);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.open-top {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.open-mid {
+  opacity: 0;
+}
+
+.open-bot {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.active-mobile {
+  color: var(--primary-bright) !important;
+  font-weight: 600;
+}
+
+.mobile-cta {
+  color: var(--primary-bright) !important;
+  font-weight: bold;
+}
+
