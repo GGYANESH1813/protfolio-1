@@ -1,11 +1,14 @@
-import React from "react";
+import * as React from "react";
 
-interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+export interface ImageProps {
   src: string;
   alt: string;
   width?: number | string;
   height?: number | string;
   priority?: boolean;
+  className?: string;
+  style?: Record<string, any>;
+  [key: string]: any;
 }
 
 export default function Image({
@@ -26,9 +29,7 @@ export default function Image({
       height={height}
       loading={priority ? "eager" : "lazy"}
       className={className}
-      style={{
-        ...style,
-      }}
+      style={style}
       {...props}
     />
   );

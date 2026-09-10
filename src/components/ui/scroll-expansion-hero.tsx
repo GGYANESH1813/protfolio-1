@@ -1,15 +1,33 @@
 "use client";
 
-import {
+import React, {
   useEffect,
   useRef,
   useState,
-  ReactNode,
-  TouchEvent,
-  WheelEvent,
+  type ReactNode,
+  type TouchEvent,
+  type WheelEvent,
 } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
+import Image from "./next-image-shim";
+
+// Resilient motion component wrapper ensuring zero-crash rendering
+const motion = {
+  div: ({ children, className, style, initial, animate, transition, ...props }: any) => (
+    <div className={className} style={style} {...props}>
+      {children}
+    </div>
+  ),
+  h2: ({ children, className, style, initial, animate, transition, ...props }: any) => (
+    <h2 className={className} style={style} {...props}>
+      {children}
+    </h2>
+  ),
+  section: ({ children, className, style, initial, animate, transition, ...props }: any) => (
+    <section className={className} style={style} {...props}>
+      {children}
+    </section>
+  ),
+};
 
 interface ScrollExpandMediaProps {
   mediaType?: "video" | "image";

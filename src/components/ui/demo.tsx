@@ -1,6 +1,5 @@
-"use client";
-
-import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
+import React from "react";
+import { CoverflowCarousel } from "./coverflow-carousel";
 
 const UNSPLASH = (id: string) =>
   `https://images.unsplash.com/photo-${id}?w=640&h=640&fit=crop&q=70&auto=format`;
