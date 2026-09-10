@@ -9,7 +9,7 @@ export const portfolioData = {
     location: "Jharsuguda, Odisha, India",
     email: "ggyanesh1813@gmail.com",
     linkedin: "https://www.linkedin.com/in/g-gyanesh-2bb7a9376",
-    github: "https://github.com/GGYANESH",
+    github: "https://github.com/GGYANESH1813",
     status: "Looking for internships",
     summary: "I am a motivated Computer Science student with strong interest in AI and problem solving. Specializing in CSE AIML, proficient in Python, skilled in DBMS, decision making, and crisis management."
   },

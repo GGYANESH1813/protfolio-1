@@ -40,7 +40,7 @@ export default function Projects({ projects = [], onCopyEmail }) {
               </p>
               <div className="dock-actions">
                 <a 
-                  href="https://github.com/GGYANESH" 
+                  href="https://github.com/GGYANESH1813" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn btn-outline btn-sm dock-trigger"
@@ -72,7 +72,7 @@ export default function Projects({ projects = [], onCopyEmail }) {
               </p>
               <div className="dock-actions">
                 <a 
-                  href="https://github.com/GGYANESH" 
+                  href="https://github.com/GGYANESH1813" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn btn-outline btn-sm dock-trigger"

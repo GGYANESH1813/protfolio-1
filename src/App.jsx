@@ -9,6 +9,7 @@ import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Toast from './components/Toast';
+import MobileActionDock from './components/MobileActionDock';
 import { portfolioData } from './data/portfolioData';
 
 export default function App() {
@@ -50,6 +51,12 @@ export default function App() {
         <Contact personal={personal} onCopyEmail={handleCopyEmail} />
         <Footer personal={personal} />
       </main>
+
+      {/* Stage 5: Persistent Mobile Bottom Action Dock */}
+      <MobileActionDock 
+        personal={personal} 
+        onCopyEmail={handleCopyEmail} 
+      />
 
       {/* Visual Toast Notification for Stage 4 */}
       <Toast 

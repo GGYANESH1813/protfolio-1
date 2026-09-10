@@ -1128,52 +1128,288 @@ footer {
   color: var(--text-low);
 }
 
-/* Responsive Media Queries */
-@media (max-width: 1024px) {
-  .hero-stats-grid {
-    grid-template-columns: repeat(2, 1fr);
+/* ========================================================
+   STAGE 5: CALIBRATED GRID SYSTEM & VIEWPORT ADAPTATION
+   ======================================================== */
+
+/* Grid System Tokens */
+:root {
+  --grid-columns: 12;
+  --grid-gap: var(--space-lg);
+}
+
+.calibrated-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gap);
+  width: 100%;
+}
+
+/* 1. Desktop Calibrated Grid (>= 1024px) - 12 Columns */
+@media (min-width: 1024px) {
+  :root {
+    --grid-columns: 12;
+    --grid-gap: var(--space-lg);
   }
+
   .grid-3-col {
-    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
   }
+
+  .grid-2-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
   .contact-grid {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: var(--space-xl);
+  }
+
+  .hero-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
   }
 }
 
-@media (max-width: 768px) {
-  .grid-3-col, .grid-2-col, .form-row-2 {
-    grid-template-columns: 1fr;
+/* 2. Tablet Calibrated Layout (768px - 1023px) - 8 Columns */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --grid-columns: 8;
+    --grid-gap: var(--space-md);
   }
+
+  .grid-3-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .grid-2-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
   .hero-stats-grid {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
   }
+
   .hero-headline {
-    font-size: 2.2rem;
+    font-size: 2.35rem;
   }
+
+  .nav-container {
+    padding: 0 var(--space-md);
+  }
+
+  main {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+    padding-top: 60px;
+  }
+}
+
+/* 3. Mobile Calibrated Stack (< 768px) - 4 Columns */
+@media (max-width: 767px) {
+  :root {
+    --grid-columns: 4;
+    --grid-gap: var(--space-sm);
+  }
+
+  /* Structural Collapse to Single-Column / 4-Col Stack */
+  .grid-3-col,
+  .grid-2-col,
+  .form-row-2,
+  .contact-grid,
+  .hero-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  /* Strict Zero Horizontal Overflow Containment */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  main {
+    padding-top: 40px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 16px));
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  section {
+    padding: var(--space-2xl) 0;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .card {
+    padding: var(--space-md);
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Responsive Typography & Hero Polish */
+  .hero-headline {
+    font-size: 1.95rem !important;
+    line-height: 1.25;
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+    line-height: 1.3;
+  }
+
+  .section-subtitle {
+    font-size: 0.92rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-narrative {
+    font-size: 1rem !important;
+    margin-bottom: var(--space-lg);
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.85rem;
+  }
+
+  /* Touch Target Accessibility (Min 44px) */
+  .btn,
+  .btn-primary,
+  .btn-outline,
+  .btn-ghost,
+  .dock-trigger,
+  .contact-method,
+  .filter-tab,
+  .back-to-top-btn {
+    min-height: 44px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .tag-chip {
+    min-height: 32px;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+  }
+
   .desktop-nav {
     display: none;
   }
-  .mobile-menu-toggle {
+
+  .nav-container {
+    padding: 0 16px;
+  }
+
+  .brand-monogram {
+    font-size: 0.78rem;
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-status {
+    display: none; /* Preserved on desktop; hidden on narrow mobile header to avoid crowding monogram and toggle */
+  }
+
+  .mobile-nav-drawer {
+    padding: 20px 16px;
+  }
+
+  .mobile-nav-links a {
+    min-height: 44px;
     display: flex;
+    align-items: center;
+    font-size: 1.05rem;
+    padding: 4px 0;
   }
-  .main-content-container {
-    padding-top: 80px;
-    padding-left: var(--space-md);
-    padding-right: var(--space-md);
+
+  .contact-method {
+    padding: 14px 16px;
   }
-  .flex-between {
+
+  .contact-val {
+    font-size: 0.85rem;
+    word-break: break-all;
+  }
+
+  .footer-content {
     flex-direction: column;
     align-items: flex-start;
+    gap: var(--space-lg);
   }
-  .footer-content, .footer-bottom-bar {
-    flex-direction: column;
-    gap: var(--space-md);
-    text-align: center;
-  }
-  .footer-left, .footer-links {
-    align-items: center;
+
+  .back-to-top-btn {
+    width: 100%;
     justify-content: center;
+  }
+}
+
+/* Ultra-Small Devices Polish (< 380px) */
+@media (max-width: 380px) {
+  .hero-headline {
+    font-size: 1.7rem !important;
+  }
+
+  .brand-monogram {
+    font-size: 0.72rem;
+    max-width: 180px;
+  }
+
+  .dock-label {
+    font-size: 0.62rem;
+  }
+
+  .dock-icon {
+    font-size: 1rem;
+  }
+
+  .dock-item-btn {
+    padding: 4px 2px;
   }
 }
 
@@ -1499,4 +1735,95 @@ footer {
   color: var(--primary-bright) !important;
   font-weight: bold;
 }
+
+/* ========================================================
+   STAGE 5: PERSISTENT MOBILE BOTTOM ACTION DOCK
+   ======================================================== */
+
+.mobile-action-dock {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mobile-action-dock {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    background: rgba(11, 15, 25, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(51, 65, 85, 0.6);
+    box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.65);
+    padding: 6px 12px calc(6px + env(safe-area-inset-bottom, 8px));
+  }
+
+  .dock-inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .dock-item-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    color: var(--text-medium);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    min-height: 48px;
+    padding: 6px 4px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .dock-item-btn:hover,
+  .dock-item-btn:active {
+    background: rgba(59, 130, 246, 0.12);
+    color: var(--primary-bright);
+    border-color: rgba(59, 130, 246, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .dock-item-highlight {
+    background: rgba(59, 130, 246, 0.16);
+    border-color: rgba(59, 130, 246, 0.35);
+    color: var(--primary-bright);
+  }
+
+  .dock-icon {
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+
+  .dock-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* Safe offset for Toast notification when bottom dock is present */
+  .toast-notification-container {
+    bottom: calc(74px + env(safe-area-inset-bottom, 12px)) !important;
+    right: 16px !important;
+    left: 16px !important;
+  }
+
+  .toast-content {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
 
