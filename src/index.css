@@ -246,13 +246,11 @@ section:last-child {
 
 /* 01. Hero Styling */
 .scroll-expansion-hero-wrapper {
-  margin-top: -36px;
-  width: 100vw;
+  width: 100%;
   position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  padding-top: 64px;
+  background: var(--canvas-base);
+  overflow: hidden;
 }
 
 .hero-expanded-content {

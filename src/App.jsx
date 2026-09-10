@@ -39,8 +39,9 @@ export default function App() {
     <>
       <Navbar personal={personal} onCopyEmail={handleCopyEmail} />
 
+      <Hero personal={personal} onCopyEmail={handleCopyEmail} />
+
       <main>
-        <Hero personal={personal} onCopyEmail={handleCopyEmail} />
         <About about={about} />
         <Skills skills={skills} />
         <Projects projects={projects} onCopyEmail={handleCopyEmail} />

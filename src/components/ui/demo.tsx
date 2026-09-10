@@ -1,7 +1,5 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
-import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
+import ScrollExpandMedia from "./scroll-expansion-hero";
 
 interface MediaAbout {
   overview: string;
