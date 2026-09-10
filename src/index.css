@@ -245,9 +245,29 @@ section:last-child {
 }
 
 /* 01. Hero Styling */
+.scroll-expansion-hero-wrapper {
+  margin-top: -36px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.hero-expanded-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
 #hero {
-  padding-top: var(--space-2xl);
-  padding-bottom: var(--space-3xl);
+  padding-top: 0;
+  padding-bottom: var(--space-2xl);
 }
 
 .hero-badge {

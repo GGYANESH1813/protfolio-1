@@ -3,6 +3,8 @@ dist
 dist-ssr
 *.local
 protfolio-1/
+componenet.md
+Discover community-made*
 .env
 .env.*
 !.env.example
