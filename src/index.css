@@ -330,14 +330,14 @@ section:last-child {
 
 .btn-primary {
   background-color: var(--primary);
-  color: #00285d;
+  color: #031735;
   border: 1px solid var(--primary);
   font-weight: 700;
 }
 
 .btn-primary:hover {
   background-color: var(--secondary);
-  color: #001c39;
+  color: #011129;
   border-color: var(--secondary);
 }
 

@@ -167,31 +167,31 @@ export default function ScrollExpandMedia({
                 </div>
               </div>
 
-              {/* Dynamic Split Title Heading */}
-              <div
-                className={`flex items-center justify-center text-center gap-2 md:gap-4 w-full relative z-10 flex-col pointer-events-none ${
+              {/* Dynamic Split Title Heading (Single Semantic H1 with Animated Spans) */}
+              <h1
+                className={`flex items-center justify-center text-center gap-2 md:gap-4 w-full relative z-10 flex-col pointer-events-none text-4xl md:text-6xl lg:text-7xl font-extrabold text-blue-100 tracking-tight ${
                   textBlend ? "mix-blend-difference" : ""
                 }`}
               >
-                <h1
-                  className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-blue-100 tracking-tight"
+                <span
+                  className="inline-block"
                   style={{
                     transform: `translateX(-${textTranslateX}vw)`,
                     transition: "transform 0.15s ease-out",
                   }}
                 >
                   {firstWord}
-                </h1>
-                <h1
-                  className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-center text-blue-100 tracking-tight"
+                </span>
+                <span
+                  className="inline-block text-center"
                   style={{
                     transform: `translateX(${textTranslateX}vw)`,
                     transition: "transform 0.15s ease-out",
                   }}
                 >
                   {restOfTitle}
-                </h1>
-              </div>
+                </span>
+              </h1>
             </div>
 
             {/* Expanded Content Section (Always safely rendered, smoothly fading in) */}
